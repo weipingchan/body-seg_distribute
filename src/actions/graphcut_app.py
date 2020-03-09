@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import sys
+import shutil
 import time
 import tkinter
 from inspect import currentframe, getframeinfo
@@ -926,27 +927,38 @@ class GraphCutAction(GraphCutViewer):
                 json.dump(all_metadata, f)
                 LOGGER.info('Save metadata - {}'.format(save_filename))
 
-            # save image
-            if 'save_image' in self._current_fl_info and self._current_fl_info['save_image'] is not None:
-                save_imgname = os.path.join(save_directory, outtemplate+'_fore_left.png')
-                cv2.imwrite(save_imgname, self._current_fl_info['save_image'])
-                LOGGER.info('Save fore-left component - {}'.format(save_imgname))
-            if 'save_image' in self._current_fr_info and self._current_fr_info['save_image'] is not None:
-                save_imgname = os.path.join(save_directory, outtemplate+'_fore_right.png')
-                cv2.imwrite(save_imgname, self._current_fr_info['save_image'])
-                LOGGER.info('Save fore-right component - {}'.format(save_imgname))
-            if 'save_image' in self._current_bl_info and self._current_bl_info['save_image'] is not None:
-                save_imgname = os.path.join(save_directory, outtemplate+'_hind_left.png')
-                cv2.imwrite(save_imgname, self._current_bl_info['save_image'])
-                LOGGER.info('Save back-left component - {}'.format(save_imgname))
-            if 'save_image' in self._current_br_info and self._current_br_info['save_image'] is not None:
-                save_imgname = os.path.join(save_directory, outtemplate+'_hind_right.png')
-                cv2.imwrite(save_imgname, self._current_br_info['save_image'])
-                LOGGER.info('Save back-right component - {}'.format(save_imgname))
-            if 'save_image' in self._current_body_info and self._current_body_info['save_image'] is not None:
-                save_imgname = os.path.join(save_directory, outtemplate+'_body.png')
-                cv2.imwrite(save_imgname, self._current_body_info['save_image'])
-                LOGGER.info('Save body component - {}'.format(save_imgname))
+            # Move the finished file to seg-done    
+            donefolder="seg_done"
+            done_directory=os.sep.join(current_img_path.split('/')[:-1]+[donefolder])
+            if not os.path.exists(done_directory):
+                os.makedirs(done_directory)
+            done_path=os.sep.join(current_img_path.split('/')[:-1]+[donefolder]+[current_img_path.split('/')[-1]])
+
+            shutil.move(current_img_path, done_path)
+
+            
+#The images for machine learning will be generated directly from the matlab script for better quality
+#             # save image
+#             if 'save_image' in self._current_fl_info and self._current_fl_info['save_image'] is not None:
+#                 save_imgname = os.path.join(save_directory, outtemplate+'_fore_left.png')
+#                 cv2.imwrite(save_imgname, self._current_fl_info['save_image'])
+#                 LOGGER.info('Save fore-left component - {}'.format(save_imgname))
+#             if 'save_image' in self._current_fr_info and self._current_fr_info['save_image'] is not None:
+#                 save_imgname = os.path.join(save_directory, outtemplate+'_fore_right.png')
+#                 cv2.imwrite(save_imgname, self._current_fr_info['save_image'])
+#                 LOGGER.info('Save fore-right component - {}'.format(save_imgname))
+#             if 'save_image' in self._current_bl_info and self._current_bl_info['save_image'] is not None:
+#                 save_imgname = os.path.join(save_directory, outtemplate+'_hind_left.png')
+#                 cv2.imwrite(save_imgname, self._current_bl_info['save_image'])
+#                 LOGGER.info('Save back-left component - {}'.format(save_imgname))
+#             if 'save_image' in self._current_br_info and self._current_br_info['save_image'] is not None:
+#                 save_imgname = os.path.join(save_directory, outtemplate+'_hind_right.png')
+#                 cv2.imwrite(save_imgname, self._current_br_info['save_image'])
+#                 LOGGER.info('Save back-right component - {}'.format(save_imgname))
+#             if 'save_image' in self._current_body_info and self._current_body_info['save_image'] is not None:
+#                 save_imgname = os.path.join(save_directory, outtemplate+'_body.png')
+#                 cv2.imwrite(save_imgname, self._current_body_info['save_image'])
+#                 LOGGER.info('Save body component - {}'.format(save_imgname))
 
             self._switch_state('browse')
             self._k_switch_to_next_image()
