@@ -39,7 +39,7 @@ class GraphCutViewer(TkViewer):
 
     # init frame
     def _init_frame(self):
-        self.root.geometry("1024x600")
+        # self.root.geometry("1024x600")
         # root
         self.frame_root = TkFrame(self.root, bg='white')
         self.frame_root.grid(row=0, column=0, sticky='news')
@@ -71,7 +71,7 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_columnconfigure(self.frame_display, 0)
 
         # footer
-        self.frame_footer = TkFrame(self.frame_root, bg='gray82')
+        self.frame_footer = TkFrame(self.root, bg='gray82')
         self.frame_footer.grid(row=2, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_footer, 0, 1)
         self.set_all_grid_columnconfigure(self.frame_footer, 0)
