@@ -13,7 +13,7 @@ LOGGER = logging.getLogger(__FILE__)
 
 def main():
     graphcut_action = GraphCutAction()
-    graphcut_action.input_images()
+    # graphcut_action.input_images()
     graphcut_action.mainloop()
 
 if __name__ == '__main__':

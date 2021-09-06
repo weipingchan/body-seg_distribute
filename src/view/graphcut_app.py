@@ -39,6 +39,7 @@ class GraphCutViewer(TkViewer):
 
     # init frame
     def _init_frame(self):
+        self.root.geometry("1024x600")
         # root
         self.frame_root = TkFrame(self.root, bg='white')
         self.frame_root.grid(row=0, column=0, sticky='news')
@@ -46,7 +47,7 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_columnconfigure(self.frame_root, 0)
 
         # head
-        self.frame_head = TkFrame(self.frame_root, bg='white')
+        self.frame_head = TkFrame(self.root, bg='white')
         self.frame_head.grid(row=0, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_head, 0)
         self.set_all_grid_columnconfigure(self.frame_head, 0)
@@ -58,7 +59,7 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_rowconfigure(self.frame_body, 0)
 
         # body > panel
-        self.frame_panel = TkFrame(self.frame_body, bg='light pink')
+        self.frame_panel = TkFrame(self.root, bg='light pink')
         self.frame_panel.grid(row=0, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_panel, 0)
         self.set_all_grid_columnconfigure(self.frame_panel, 0)
@@ -114,9 +115,9 @@ class GraphCutViewer(TkViewer):
     # init head widget
     def _init_widget_head(self):
         self.set_all_grid_rowconfigure(self.frame_head, 0, 1)
-        self.label_state = ttk.Label(self.frame_head, text=u'現在模式: N/A', style='H2.TLabel')
+        self.label_state = ttk.Label(self.frame_head, text=u'Current Model: N/A', style='H2.TLabel')
         self.label_state.grid(row=0, column=0, sticky='w')
-        self.label_resize = ttk.Label(self.frame_head, text=u'原有尺寸 N/A-> 顯示尺寸 N/A', style='H2.TLabel')
+        self.label_resize = ttk.Label(self.frame_head, text=u'Original Size N/A-> Display Size N/A', style='H2.TLabel')
         self.label_resize.grid(row=1, column=0, sticky='w')
 
     # init body widget
