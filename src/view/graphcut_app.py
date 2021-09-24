@@ -98,12 +98,15 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_rowconfigure(self.frame_display_setting, 0)
         self.set_all_grid_columnconfigure(self.frame_display_setting, 0)
 
+        # temp
+        self.temp = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+
         # footer > display setting > threshold options
-        self.frame_threshold_options = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+        self.frame_threshold_options = TkFrame(self.temp, bg='gray82', pady=5) # was self.frame_display_setting
         self.frame_threshold_options.grid(row=0, column=0, sticky='news')
 
         # footer > display setting > manual threshold
-        self.frame_manual_threshold = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+        self.frame_manual_threshold = TkFrame(self.temp, bg='gray82', pady=5) # was self.frame_display_setting
         self.frame_manual_threshold.grid(row=1, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_manual_threshold, 0)
         self.set_all_grid_columnconfigure(self.frame_manual_threshold, 0)
