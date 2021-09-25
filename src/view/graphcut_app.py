@@ -15,7 +15,7 @@ from src.view.ttkstyle import TTKStyle, init_css
 
 LOGGER = logging.getLogger(__name__)
 
-THRESHOLD_OPTION = [(u'手動', 'manual'), ('Mean Adaptive', 'mean'), ('Gaussian Adaptive', 'gaussian')]
+THRESHOLD_OPTION = [(u'Manual', 'manual'), ('Mean Adaptive', 'mean'), ('Gaussian Adaptive', 'gaussian')]
 
 class GraphCutViewer(TkViewer):
     def __init__(self):
@@ -39,7 +39,7 @@ class GraphCutViewer(TkViewer):
 
     # init frame
     def _init_frame(self):
-        self.root.geometry("1024x600")
+        # self.root.geometry("1024x600")
         # root
         self.frame_root = TkFrame(self.root, bg='white')
         self.frame_root.grid(row=0, column=0, sticky='news')
@@ -71,7 +71,7 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_columnconfigure(self.frame_display, 0)
 
         # footer
-        self.frame_footer = TkFrame(self.frame_root, bg='gray82')
+        self.frame_footer = TkFrame(self.root, bg='gray82')
         self.frame_footer.grid(row=2, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_footer, 0, 1)
         self.set_all_grid_columnconfigure(self.frame_footer, 0)
@@ -98,12 +98,15 @@ class GraphCutViewer(TkViewer):
         self.set_all_grid_rowconfigure(self.frame_display_setting, 0)
         self.set_all_grid_columnconfigure(self.frame_display_setting, 0)
 
+        # temp
+        self.temp = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+
         # footer > display setting > threshold options
-        self.frame_threshold_options = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+        self.frame_threshold_options = TkFrame(self.temp, bg='gray82', pady=5) # was self.frame_display_setting
         self.frame_threshold_options.grid(row=0, column=0, sticky='news')
 
         # footer > display setting > manual threshold
-        self.frame_manual_threshold = TkFrame(self.frame_display_setting, bg='gray82', pady=5)
+        self.frame_manual_threshold = TkFrame(self.temp, bg='gray82', pady=5) # was self.frame_display_setting
         self.frame_manual_threshold.grid(row=1, column=0, sticky='news')
         self.set_all_grid_rowconfigure(self.frame_manual_threshold, 0)
         self.set_all_grid_columnconfigure(self.frame_manual_threshold, 0)
@@ -168,7 +171,7 @@ class GraphCutViewer(TkViewer):
         self.checkbtn_floodfill.grid(row=0, column=1, sticky='w')
 
         # input panel gamma
-        self.label_gamma = ttk.Label(self.frame_gamma, text=u'調整對比 ({:.2f}): '.format(1.), style='H5.TLabel')
+        self.label_gamma = ttk.Label(self.frame_gamma, text=u'Contrast Adjustment ({:.2f}): '.format(1.), style='H5.TLabel')
         self.label_gamma.grid(row=0, column=0, sticky='w')
         self.val_scale_gamma = tkinter.DoubleVar()
         self.val_scale_gamma.set(1.0)
@@ -182,8 +185,8 @@ class GraphCutViewer(TkViewer):
         self.scale_gamma.grid(row=0, column=1, sticky='w')
 
         # display threshold option
-        self.label_threshold_options = ttk.Label(self.frame_threshold_options, text=u'門檻值選項: ', style='H5.TLabel')
-        # self.label_threshold_options.grid(row=0, column=0, sticky='w')
+        self.label_threshold_options = ttk.Label(self.frame_threshold_options, text=u'Threshold Option: ', style='H5.TLabel') 
+        self.label_threshold_options.grid(row=0, column=0, sticky='w')
         self.val_threshold_option = tkinter.StringVar()
         self.val_threshold_option.set(THRESHOLD_OPTION[0][-1])
         self.radiobtn_threshold_options = []
@@ -194,11 +197,11 @@ class GraphCutViewer(TkViewer):
                                        variable=self.val_threshold_option,
                                        value=val,
                                        style='H5.TRadiobutton')
-            # radiobtn.grid(row=0, column=i+1, sticky='w', padx=10)
+            radiobtn.grid(row=0, column=i+1, sticky='w', padx=10)
             self.radiobtn_threshold_options.append(radiobtn)
 
         # display threshold manual scale
-        self.label_manual_threshold = ttk.Label(self.frame_manual_threshold, text=u'門檻值 ({:.2f}): '.format(250), style='H5.TLabel')
+        self.label_manual_threshold = ttk.Label(self.frame_manual_threshold, text=u'Threshold Value ({:.2f}): '.format(250), style='H5.TLabel')
         self.label_manual_threshold.grid(row=0, column=0, sticky='w')
         self.val_manual_threshold = tkinter.DoubleVar()
         self.val_manual_threshold.set(250)

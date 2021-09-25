@@ -157,6 +157,7 @@ class GraphCutAction(GraphCutViewer):
             self.photo_panel = TkConverter.cv2_to_photo(tmp_image)
             self._current_image_info['preprocess'] = tmp_image
             self._check_and_update_photo(self.label_panel_image, self.photo_panel)
+            print("test--update----call1")
 
             if self._current_state == 'edit':
                 self._render_panel_image()
@@ -335,9 +336,11 @@ class GraphCutAction(GraphCutViewer):
         elif not self._flag_body_width:
             LOGGER.warning('Please confirm the body length first')
         elif 'l_track' not in self._current_image_info or 'r_track' not in self._current_image_info:
+            print(self._current_image_info['l_line'])
             LOGGER.warning('No tracking label')
         else:
             # preprocess
+            print("?????????")
             display_image = None
             if self.val_checkbtn_floodfill.get() == 'on' and 'removal' in self._current_image_info:
                 display_image = self._current_image_info['removal'].copy()
@@ -371,6 +374,7 @@ class GraphCutAction(GraphCutViewer):
             self._current_body_info = self._separate_component_by_threshold(display_body)
 
             # render
+            print("right before render...")
             self._check_and_update_fl(self._current_fl_info['show_image'])
             self._check_and_update_fr(self._current_fr_info['show_image'])
             self._check_and_update_bl(self._current_bl_info['show_image'])
@@ -448,10 +452,12 @@ class GraphCutAction(GraphCutViewer):
     # get the mask and connected component by threshold option
     def _separate_component_by_threshold(self, img):
         if self.val_threshold_option.get() == 'manual':
+            print("test1----------")
             if 'active' not in self.scale_manual_threshold.state():
                 LOGGER.error('manual threshold is disable')
             else:
                 # preprocess
+                print("test2----------")
                 save_result = np.zeros(img.shape)
                 val_threshold = int(self.val_manual_threshold.get())
                 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -459,8 +465,15 @@ class GraphCutAction(GraphCutViewer):
 
                 try:
                     # contour
+                    print("gray_img: ", gray_img)
+                    print("val_threshold: ", val_threshold)
+                    print("cv2.THRESH_BINARY: ", cv2.THRESH_BINARY)
+
                     ret, mask = cv2.threshold(gray_img, val_threshold, 255, cv2.THRESH_BINARY) #Mod 12/12
+                    print("mask------------: ", mask)
+
                     cnts = ImageCV.connected_component_by_stats(mask, 1, cv2.CC_STAT_AREA)
+                    print("cnts: ", cnts)
 
                     # filled component
                     fill_mask, cnts = ImageCV.fill_connected_component(img, cnts, threshold=255)
@@ -564,6 +577,7 @@ class GraphCutAction(GraphCutViewer):
 
     # render panel image
     def _render_panel_image(self):
+        print("test--update----1")
         if not self._image_queue:
             LOGGER.error('No image in the queue to process')
         elif self._current_state != 'edit':
@@ -683,6 +697,7 @@ class GraphCutAction(GraphCutViewer):
     def _update_scale_gamma(self, val_gamma):
         # update msg
         val_gamma = float(val_gamma)
+        print("update gamma current: ",val_gamma)
         self._update_scale_gamma_msg(val_gamma)
 
         # update input panel modified process
@@ -697,22 +712,31 @@ class GraphCutAction(GraphCutViewer):
     def _update_scale_gamma_msg(self, val_gamma):
         # update msg
         val_gamma = float(val_gamma)
+        # print("update gamma msg: ",val_gamma)
         self.label_gamma.config(text=u'Contrast ({:.2f}): '.format(val_gamma))
 
     # callback: drag the ttk.Scale and show the current value
     def _update_scale_manual_threshold(self, val_threshold):
         # update msg
         val_threshold = float(val_threshold)
+        print("update threshold current: ",val_threshold)
+        print("option: ",self.val_threshold_option.get())
+        print("state: ", self.scale_manual_threshold.state())
+        print("current state: ", self._current_state)
         self._update_scale_manual_threshold_msg(val_threshold)
-
+        print("22222222222")
         # update separate component process
-        if self._flag_drew_left or self._flag_drew_right:
-            self._separate_component()
+        # if self._flag_drew_left or self._flag_drew_right:
+        print("11111111111")
+        self._separate_component()
+
+        
 
     # callback: drag and update
     def _update_scale_manual_threshold_msg(self, val_threshold):
         # update msg
         val_threshold = float(val_threshold)
+        # print("update threshold msg: ",val_threshold)
         self.label_manual_threshold.config(text=u'Threshold ({:.2f}): '.format(val_threshold))
 
     # callback: disable the manual scale when the option is not the manual threshold
@@ -785,8 +809,10 @@ class GraphCutAction(GraphCutViewer):
             if self._flag_drawing_left:
                 if 0 <= event.x < point_x(self._current_image_info['l_line']):
                     self._current_image_info['l_track'].append((event.x, event.y))
+                    print("updated l track")
                     if not self._flag_drew_right:
                         self._current_image_info['r_track'].append((event.x+mirror_distance(event.x)*2, event.y))
+                        print("updated r track")
                 else:
                     self._m_unlock_track_flag()
 

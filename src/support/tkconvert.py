@@ -29,8 +29,9 @@ class TkConverter(object):
 
     @staticmethod
     def cv2_to_photo(img):
+        length = len(img.shape)
         try:
-            if len(img.shape) == 3:
+            if length == 3:
                 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         except Exception as e:
             LOGGER.warning(e)
