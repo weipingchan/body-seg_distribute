@@ -514,7 +514,7 @@ class GraphCutAction(GraphCutViewer):
             self.label_state.config(text=u'Browser ({}/{}) - {}'.format(
                 self._current_image_info['index'] + 1,
                 len(self._image_queue),
-                self._current_image_info['path'].split(os.sep)[-1]
+                os.path.split(self._current_image_info['path'])[1]
             ), style='H2BlackBold.TLabel')
 
             # update display default photo
@@ -539,7 +539,7 @@ class GraphCutAction(GraphCutViewer):
             self.label_state.config(text=u'Editor ({}/{}) - {}'.format(
                 self._current_image_info['index'] + 1,
                 len(self._image_queue),
-                self._current_image_info['path'].split(os.sep)[-1]
+                os.path.split(self._current_image_info['path'])[1]
             ), style='H2RedBold.TLabel')
 
             # render history

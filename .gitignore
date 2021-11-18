@@ -95,3 +95,4 @@ image/sample/*
 image/thermal/
 *.cprof
 .vscode/
+image/*

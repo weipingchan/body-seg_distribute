@@ -118,8 +118,8 @@ class GraphCutViewer(TkViewer):
     # init head widget
     def _init_widget_head(self):
         self.set_all_grid_rowconfigure(self.frame_head, 0, 1)
-        self.label_state = ttk.Label(self.frame_head, text=u'Current Model: N/A', style='H2.TLabel')
-        self.label_state.grid(row=0, column=0, sticky='w')
+        self.label_state = ttk.Label(self.frame_panel, text=u'Current Model: N/A', style='H2.TLabel')
+        self.label_state.grid(row=0, column=0, sticky='ns')
         self.label_resize = ttk.Label(self.frame_head, text=u'Original Size N/A-> Display Size N/A', style='H2.TLabel')
         self.label_resize.grid(row=1, column=0, sticky='w')
 
@@ -127,8 +127,8 @@ class GraphCutViewer(TkViewer):
     def _init_widget_body(self):
         # panel
         self.set_all_grid_rowconfigure(self.frame_panel, 0, 1)
-        self.label_panel = ttk.Label(self.frame_panel, text='Input Panel', style='H2.TLabel')
-        self.label_panel.grid(row=0, column=0, sticky='ns')
+        # self.label_panel = ttk.Label(self.frame_panel, text='Input Panel', style='H2.TLabel')
+        # self.label_panel.grid(row=0, column=0, sticky='w')
         self.photo_panel = ImageNP.generate_checkboard((self._im_h, self._im_w), block_size=10)
         self.photo_panel = TkConverter.ndarray_to_photo(self.photo_panel)
         self.label_panel_image = ttk.Label(self.frame_panel, image=self.photo_panel)
