@@ -13,4 +13,4 @@ A tutorial video can be found in the following link:
 (https://youtu.be/T6eybIyrwt0)
 
 Please cite this work as:
-Chan, W-P., Rabideau Childers, R., Ashe, S. et al. A high-throughput multispectral imaging system for museum specimens. Commun Biol 5, 1318 (2022).
+Chan, W-P., Rabideau Childers, R., Ashe, S. *et al.* A high-throughput multispectral imaging system for museum specimens. *Commun Biol* **5**, 1318 (2022).
