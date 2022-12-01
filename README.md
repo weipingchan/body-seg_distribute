@@ -1,4 +1,4 @@
-#Manual fore- and hindwing segmentation
+# Manual fore- and hindwing segmentation
 
 Please find the article describing the application of this script below (DOI: 10.1038/s42003-022-04282-z):
 (https://www.nature.com/articles/s42003-022-04282-z)
@@ -13,4 +13,4 @@ A tutorial video can be found in the following link:
 (https://youtu.be/T6eybIyrwt0)
 
 Please cite this work as:
-Chan, Rabideau Childers, and Sorcha et al., A high-throughput multispectral imaging system for museum specimens. Communications Biology. (2022)
+Chan, W-P., Rabideau Childers, R., Ashe, S. et al. A high-throughput multispectral imaging system for museum specimens. Commun Biol 5, 1318 (2022).
