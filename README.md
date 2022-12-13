@@ -3,7 +3,7 @@
 Please find the article describing the application of this script below (DOI: 10.1038/s42003-022-04282-z):
 (https://www.nature.com/articles/s42003-022-04282-z)
 
-Examplar datasets can be found in this repository:
+Exemplar datasets can be found in this repository:
 (https://doi.org/10.5061/dryad.37pvmcvp5)
 
 Please find the link for the corresponding protocol:
